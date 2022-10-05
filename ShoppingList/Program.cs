@@ -28,10 +28,10 @@ namespace ShoppingList
 
             DisplayItemsByPrice();
 
-            AddToCart();
+            ItemEntry();
         }
 
-        public static void AddToCart()
+        public static void ItemEntry()
         {
             while (true)
             {
@@ -41,44 +41,8 @@ namespace ShoppingList
 
                 if (items.ContainsKey(itemEntered))
                 {
-                    Console.WriteLine($"\n{itemEntered} found. {itemEntered} will cost ${items[itemEntered]}. Would you like to add item to cart? \"Y\" or \"N\"");
-                    string confirmItem = Console.ReadLine().ToUpper();
-
-                    if (confirmItem == "Y" || confirmItem == "YES")
-                    {
-                        userPurchases.Add(itemEntered);
-                        prices.Add(items[itemEntered]);
-
-                        Console.WriteLine($"\n{itemEntered} (${items[itemEntered]}) confirmed. Your current amount owed is {CurrentTotal()}. ");
-
-                        Console.WriteLine("Would you like to purchase another item? \"Y\" or \"N\"\n");
-
-                        string purchaseAdditionalItem = Console.ReadLine().ToUpper();
-
-                        if (purchaseAdditionalItem == "Y")
-                        {
-                            continue;
-                        }
-
-                        else if (purchaseAdditionalItem == "N")
-                        {
-                            Console.WriteLine();
-                            DisplayOrderSummary();
-                            break;
-                        }
-
-                        else
-                        {
-                            Console.WriteLine("Invalid response:");
-                            continue;
-                        }
-                    }
-
-                    else
-                    {
-                        continue;
-                    }
-
+                    AddToCart();
+                    break;
                 }
 
                 else if (itemEntered == "Items")
@@ -97,7 +61,46 @@ namespace ShoppingList
             }
         }
 
-        //public static void 
+        public static void AddToCart()
+        {
+            Console.WriteLine($"\n{itemEntered} found. {itemEntered} will cost ${items[itemEntered]}. Would you like to add item to cart? \"Y\" or \"N\"");
+            string confirmItem = Console.ReadLine().ToUpper();
+
+            if (confirmItem == "Y" || confirmItem == "YES")
+            {
+                userPurchases.Add(itemEntered);
+                prices.Add(items[itemEntered]);
+
+                Console.WriteLine($"\n{itemEntered} (${items[itemEntered]}) confirmed. Your current amount owed is {CurrentTotal()}. ");
+
+                Console.WriteLine("Would you like to purchase another item? \"Y\" or \"N\"\n");
+
+                string purchaseAdditionalItem = Console.ReadLine().ToUpper();
+
+                if (purchaseAdditionalItem == "Y")
+                {
+                    ItemEntry();
+                }
+
+                else if (purchaseAdditionalItem == "N")
+                {
+                    Console.WriteLine();
+                    DisplayOrderSummary();
+                    return;
+                }
+
+                else
+                {
+                    Console.WriteLine("Invalid response:");
+                    ItemEntry();
+                }
+            }
+
+            else
+            {
+                ItemEntry();
+            }
+        }
         
         public static void DisplayItemsByPrice()//can I have one function that takes a parameter, then sorts by the parameter?
         {
