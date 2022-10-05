@@ -48,7 +48,7 @@ namespace ShoppingList
                 else if (itemEntered == "Items")
                 {
                     DisplayItemsByPrice();
-                    continue;
+                    continue; //unnecessary but helps other coders visualize intent
                 }
 
                 else
@@ -138,16 +138,15 @@ namespace ShoppingList
 
             for (int i = 0; i < userPurchases.Count; i++)
             {
-                Console.WriteLine($"{userPurchases[i]} \t {items[userPurchases[i]], 10}");
+                Console.WriteLine($"{userPurchases[i], -10} \t {items[userPurchases[i]], 10}");//formatting is difficult in console apps...
             }
 
-            Console.WriteLine();
-            Console.WriteLine($"Your total cost today is ${totalCost}.\nThank you for shopping with us.\nHave a great day!");
+            Console.WriteLine($"\nYour total cost today is ${totalCost}.\nThank you for shopping with us.\nHave a great day!");
         }
 
         public static decimal CurrentTotal()
         {
-            totalCost = 0;
+            totalCost = 0;//necessary to reset totalCost to 0 when function is called
             
             foreach (decimal purchase in prices)
             {
